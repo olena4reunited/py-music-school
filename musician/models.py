@@ -17,8 +17,8 @@ class Musician(models.Model):
         super().clean()
         if not self.age:
             raise ValidationError("Age is required.")
-        # if self.age < 14:
-        #     raise ValidationError("You must be at least 14 years old.")
+        if self.age < 14:
+            raise ValidationError("You must be at least 14 years old.")
 
     def save(
         self,
