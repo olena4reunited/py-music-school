@@ -13,7 +13,8 @@ class Musician(models.Model):
     def is_adult(self):
         return self.age >= 21
 
-    def clean_age(self):
+    def clean(self):
+        super().clean()
         age = self.cleaned_data.get("age")
 
         if age is None:
@@ -22,9 +23,6 @@ class Musician(models.Model):
             raise ValidationError("You must be at least 14 years old.")
 
         return age
-
-    def clean(self):
-        return super().clean()
 
     def save(
         self,
