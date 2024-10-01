@@ -26,8 +26,21 @@ class Musician(models.Model):
     def clean(self):
         return super().clean()
 
-    def save(self, *args, **kwargs):
-        return super().full_clean(self, *args, **kwargs)
+    def save(
+        self,
+        *args,
+        force_insert=False,
+        force_update=False,
+        using=None,
+        update_fields=None,
+    ):
+        self.full_clean()
+        return super().save(
+            force_insert,
+            force_update,
+            using,
+            update_fields
+        )
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
